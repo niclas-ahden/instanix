@@ -1,0 +1,18 @@
+# See https://fly.io/docs/reference/configuration/ for information about how to use this file.
+
+app = "instarst"
+primary_region = "arn"
+
+[http_service]
+  internal_port = 8080
+  force_https = true
+  auto_stop_machines = false
+  auto_start_machines = true
+  min_machines_running = 1
+
+[env]
+  LEPTOS_OUTPUT_NAME="instarst"
+  LEPTOS_SITE_ROOT="site"
+  LEPTOS_SITE_PKG_DIR="pkg"
+  LEPTOS_SITE_ADDR="0.0.0.0:8080"
+  LEPTOS_RELOAD_PORT="3001"

@@ -1,0 +1,13 @@
+version: "3.9"
+services:
+  web:
+    build: .
+    image: instarst
+    environment:
+      - LEPTOS_OUTPUT_NAME=instarst
+      - LEPTOS_SITE_ROOT=site
+      - LEPTOS_SITE_PKG_DIR=pkg
+      - LEPTOS_SITE_ADDR=0.0.0.0:3000
+      - LEPTOS_RELOAD_PORT=3001
+    ports:
+      - 3000:3000
