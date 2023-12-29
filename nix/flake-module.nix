@@ -41,10 +41,7 @@ in
               src = self; # The original, unfiltered source
               filter = path: type:
                 (lib.hasSuffix "\.html" path) ||
-                (lib.hasSuffix "tailwind.config.js" path) ||
-                # Example of a folder for images, icons, etc
-                (lib.hasInfix "/assets/" path) ||
-                (lib.hasInfix "/css/" path) ||
+                (lib.hasInfix "/public/" path) ||
                 (lib.hasInfix "/style/" path) ||
                 # Default filter from crane (allow .rs files)
                 (config.instanix.craneLib.filterCargoSources path type)
@@ -68,7 +65,8 @@ in
                   pkgs.cargo-leptos
                   pkgs.dart-sass
                   pkgs.binaryen # Provides wasm-opt
-                  tailwindcss
+                ] ++ lib.optionals pkgs.stdenv.isDarwin [
+                  pkgs.darwin.apple_sdk.frameworks.SystemConfiguration
                 ];
               };
               cargoArtifacts = craneLib.buildDepsOnly args;
@@ -76,12 +74,13 @@ in
                 inherit cargoArtifacts;
                 buildPhaseCargoCommand = "cargo leptos build --release -vvv";
                 cargoTestCommand = "cargo leptos test --release -vvv";
+                cargoExtraArgs = "";
                 nativeBuildInputs = [
                   pkgs.makeWrapper
                 ];
                 installPhaseCommand = ''
                   mkdir -p $out/bin
-                  cp target/server/release/${name} $out/bin/
+                  cp target/release/${name} $out/bin/
                   cp -r target/site $out/bin/
                   wrapProgram $out/bin/${name} \
                     --set LEPTOS_SITE_ROOT $out/bin/site
@@ -111,17 +110,6 @@ in
                 rustToolchain
               ];
             };
-
-            tailwindcss = pkgs.nodePackages.tailwindcss.overrideAttrs
-              (oa: {
-                plugins = [
-                  pkgs.nodePackages."@tailwindcss/aspect-ratio"
-                  pkgs.nodePackages."@tailwindcss/forms"
-                  pkgs.nodePackages."@tailwindcss/language-server"
-                  pkgs.nodePackages."@tailwindcss/line-clamp"
-                  pkgs.nodePackages."@tailwindcss/typography"
-                ];
-              });
           in
           {
             # Rust package
@@ -136,7 +124,6 @@ in
                 rustDevShell
               ];
               nativeBuildInputs = with pkgs; [
-                tailwindcss
                 cargo-leptos
                 dart-sass
                 binaryen # Provides wasm-opt
