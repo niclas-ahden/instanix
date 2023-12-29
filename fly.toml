@@ -1,6 +1,6 @@
 # See https://fly.io/docs/reference/configuration/ for information about how to use this file.
 
-app = "instarst"
+app = "instanix"
 primary_region = "arn"
 
 [http_service]
@@ -11,7 +11,7 @@ primary_region = "arn"
   min_machines_running = 1
 
 [env]
-  LEPTOS_OUTPUT_NAME="instarst"
+  LEPTOS_OUTPUT_NAME="instanix"
   LEPTOS_SITE_ROOT="site"
   LEPTOS_SITE_PKG_DIR="pkg"
   LEPTOS_SITE_ADDR="0.0.0.0:8080"

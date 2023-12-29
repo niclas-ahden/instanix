@@ -42,13 +42,13 @@ docker container ls --all --filter name=^healthcheck-krst-8fec719eddc14e442589a9
 kamal app stale_containers --stop 
 
 
-Postgres cluster instarst-db created
+Postgres cluster instanix-db created
   Username:    postgres
   Password:    31IUT4ubhW46h29
-  Hostname:    instarst-db.internal
+  Hostname:    instanix-db.internal
   Flycast:     fdaa:2:2f27:0:1::2
   Proxy port:  5432
   Postgres port:  5433
-  Connection string: postgres://postgres:31IUT4ubhW46h29@instarst-db.flycast:5432
+  Connection string: postgres://postgres:31IUT4ubhW46h29@instanix-db.flycast:5432
 
-DATABASE_URL=postgres://instarst:uVaKnD5jiqlcoYA@instarst-db.flycast:5432/instarst?sslmode=disable
+DATABASE_URL=postgres://instanix:uVaKnD5jiqlcoYA@instanix-db.flycast:5432/instanix?sslmode=disable

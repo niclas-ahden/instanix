@@ -17,7 +17,7 @@ pub fn App() -> impl IntoView {
     provide_meta_context();
 
     view! {
-        <Stylesheet id="leptos" href="/pkg/instarst.css"/>
+        <Stylesheet id="leptos" href="/pkg/instanix.css"/>
         <Link rel="preconnect" href="https://fonts.googleapis.com"/>
         <Link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="anonymous"/>
         <Link

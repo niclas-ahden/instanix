@@ -33,8 +33,8 @@ RUN apt-get update && \
 
 WORKDIR /app
 
-COPY --from=builder /app/target/release/instarst /app/instarst
+COPY --from=builder /app/target/release/instanix /app/instanix
 COPY --from=builder /app/target/site /app/site
 
 EXPOSE 8080
-CMD ["/app/instarst"]
+CMD ["/app/instanix"]

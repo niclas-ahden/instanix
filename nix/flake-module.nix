@@ -45,6 +45,7 @@ in
                 # Example of a folder for images, icons, etc
                 (lib.hasInfix "/assets/" path) ||
                 (lib.hasInfix "/css/" path) ||
+                (lib.hasInfix "/style/" path) ||
                 # Default filter from crane (allow .rs files)
                 (config.instanix.craneLib.filterCargoSources path type)
               ;
@@ -65,6 +66,7 @@ in
                 version = version;
                 buildInputs = [
                   pkgs.cargo-leptos
+                  pkgs.dart-sass
                   pkgs.binaryen # Provides wasm-opt
                   tailwindcss
                 ];
@@ -136,6 +138,7 @@ in
               nativeBuildInputs = with pkgs; [
                 tailwindcss
                 cargo-leptos
+                dart-sass
                 binaryen # Provides wasm-opt
               ];
             };

@@ -2,9 +2,9 @@ version: "3.9"
 services:
   web:
     build: .
-    image: instarst
+    image: instanix
     environment:
-      - LEPTOS_OUTPUT_NAME=instarst
+      - LEPTOS_OUTPUT_NAME=instanix
       - LEPTOS_SITE_ROOT=site
       - LEPTOS_SITE_PKG_DIR=pkg
       - LEPTOS_SITE_ADDR=0.0.0.0:3000

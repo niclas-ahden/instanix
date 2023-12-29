@@ -2,8 +2,8 @@
 #[tokio::main]
 async fn main() {
     use axum::{routing::post, Router};
-    use instarst::app::*;
-    use instarst::fileserv::file_and_error_handler;
+    use instanix::app::*;
+    use instanix::fileserv::file_and_error_handler;
     use leptos::*;
     use leptos_axum::{generate_route_list, LeptosRoutes};
     use leptos::logging::log;
