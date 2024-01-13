@@ -41,7 +41,7 @@ async fn main() {
     // build our application with a route
     let app = Router::new()
         .route("/api/*fn_name", post(leptos_axum::handle_server_fns))
-        .leptos_routes(&leptos_options, routes, || view! { <App pkg_dir=LEPTOS_SITE_PKG_DI.to_string() })
+        .leptos_routes(&leptos_options, routes, || view! { <App pkg_dir=LEPTOS_SITE_PKG_DIR.to_string() /> })
         .fallback(file_and_error_handler)
         .with_state(leptos_options);
 
