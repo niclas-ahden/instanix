@@ -83,7 +83,7 @@ in
                   mkdir -p $out/bin
                   cp target/release/${name} $out/bin/
                   cp -r target/site $out/bin/
-                  siteHash=md5deep -r target/site/pkg | cut -f 1 -d " "
+                  siteHash=$(md5deep -r target/site/pkg | cut -f 1 -d " ")
                   pkgDirName="pkg-$siteHash"
                   mv $out/bin/site/pkg $out/bin/site/$pkgDirName
                   wrapProgram $out/bin/${name} \
