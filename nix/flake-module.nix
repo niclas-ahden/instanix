@@ -77,6 +77,7 @@ in
                 cargoExtraArgs = "";
                 nativeBuildInputs = [
                   pkgs.makeWrapper
+                  pkgs.nix # Provides `nix-hash` which we use for cache busting
                 ];
                 installPhaseCommand = ''
                   mkdir -p $out/bin
