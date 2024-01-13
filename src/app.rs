@@ -12,7 +12,7 @@ use leptos_meta::*;
 use leptos_router::*;
 
 #[component]
-pub fn App(pkg_dir: &str) -> impl IntoView {
+pub fn App(pkg_dir: String) -> impl IntoView {
     // Provides context that manages stylesheets, titles, meta tags, etc.
     provide_meta_context();
 

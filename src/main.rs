@@ -36,12 +36,12 @@ async fn main() {
     let conf = get_configuration(None).await.unwrap();
     let leptos_options = conf.leptos_options;
     let addr = leptos_options.site_addr;
-    let routes = generate_route_list(|| view! { <App pkg_dir=LEPTOS_SITE_PKG_DIR /> });
+    let routes = generate_route_list(|| view! { <App pkg_dir=LEPTOS_SITE_PKG_DIR.to_string() /> });
 
     // build our application with a route
     let app = Router::new()
         .route("/api/*fn_name", post(leptos_axum::handle_server_fns))
-        .leptos_routes(&leptos_options, routes, || view! { <App pkg_dir=LEPTOS_SITE_PKG_DIR /> })
+        .leptos_routes(&leptos_options, routes, || view! { <App pkg_dir=LEPTOS_SITE_PKG_DI.to_string() })
         .fallback(file_and_error_handler)
         .with_state(leptos_options);
 

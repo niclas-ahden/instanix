@@ -33,6 +33,6 @@ pub fn hydrate() {
     pub const LEPTOS_SITE_PKG_DIR: &str = env!("LEPTOS_SITE_PKG_DIR");
 
     leptos::mount_to_body(move || {
-        view! { <App pkg_dir=LEPTOS_SITE_PKG_DIR /> }
+        view! { <App pkg_dir=LEPTOS_SITE_PKG_DIR.to_string() /> }
     });
 }
