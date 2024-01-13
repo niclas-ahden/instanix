@@ -85,6 +85,9 @@ in
                   cp -r target/site $out/bin/
                   siteHash=$(md5deep -r target/site/pkg | cut -f 1 -d " ")
                   pkgDirName="pkg-$siteHash"
+                  echo "pkgDirName: $pkgDirName"
+                  echo "sourcePath: $out/bin/site/pkg"
+                  echo "targetPath: $out/bin/site/$pkgDirName"
                   mv $out/bin/site/pkg $out/bin/site/$pkgDirName
                   wrapProgram $out/bin/${name} \
                     --set LEPTOS_SITE_ROOT $out/bin/site \
