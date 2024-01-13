@@ -77,17 +77,13 @@ in
                 cargoExtraArgs = "";
                 nativeBuildInputs = [
                   pkgs.makeWrapper
-                  pkgs.hashdeep # Used to get MD5 of asset dir for cache busting
                 ];
                 installPhaseCommand = ''
                   mkdir -p $out/bin
                   cp target/release/${name} $out/bin/
                   cp -r target/site $out/bin/
-                  siteHash=$(md5deep -r target/site/pkg | cut -f 1 -d " ")
+                  siteHash=$(nix-hash target/site/pkg)
                   pkgDirName="pkg-$siteHash"
-                  echo "pkgDirName: $pkgDirName"
-                  echo "sourcePath: $out/bin/site/pkg"
-                  echo "targetPath: $out/bin/site/$pkgDirName"
                   mv $out/bin/site/pkg $out/bin/site/$pkgDirName
                   wrapProgram $out/bin/${name} \
                     --set LEPTOS_SITE_ROOT $out/bin/site \

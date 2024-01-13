@@ -45,7 +45,6 @@
           ];
           nativeBuildInputs = with pkgs; [
             cargo-watch
-            hashdeep
           ];
         };
       };
