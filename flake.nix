@@ -44,8 +44,8 @@
             self'.devShells.instanix
           ];
           nativeBuildInputs = with pkgs; [
-            just
             cargo-watch
+            hashdeep
           ];
         };
       };

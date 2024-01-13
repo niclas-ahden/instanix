@@ -77,13 +77,18 @@ in
                 cargoExtraArgs = "";
                 nativeBuildInputs = [
                   pkgs.makeWrapper
+                  pkgs.hashdeep # Used to get MD5 of asset dir for cache busting
                 ];
                 installPhaseCommand = ''
                   mkdir -p $out/bin
                   cp target/release/${name} $out/bin/
                   cp -r target/site $out/bin/
+                  siteHash = md5deep -r target/site/pkg | cut -f 1 -d " "
+                  pkgDirName = "pkg-$siteHash"
+                  mv $out/bin/site/pkg $out/bin/site/$pkgDirName
                   wrapProgram $out/bin/${name} \
-                    --set LEPTOS_SITE_ROOT $out/bin/site
+                    --set LEPTOS_SITE_ROOT $out/bin/site \
+                    --set LEPTOS_SITE_PKG_DIR $pkgDirName
                 '';
               };
               package = craneLib.buildPackage (buildArgs // config.instanix.overrideCraneArgs buildArgs);
