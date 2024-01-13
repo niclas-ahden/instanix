@@ -15,9 +15,10 @@ use leptos_router::*;
 pub fn App() -> impl IntoView {
     // Provides context that manages stylesheets, titles, meta tags, etc.
     provide_meta_context();
+    pub const LEPTOS_SITE_PKG_DIR: &str = env!("LEPTOS_SITE_PKG_DIR");
 
     view! {
-        <Stylesheet id="leptos" href="/pkg/instanix.css"/>
+        <Stylesheet id="leptos" href=format!("/{}/instanix.css", LEPTOS_SITE_PKG_DIR) />
         <Link rel="preconnect" href="https://fonts.googleapis.com"/>
         <Link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="anonymous"/>
         <Link

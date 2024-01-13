@@ -72,23 +72,24 @@ in
               cargoArtifacts = craneLib.buildDepsOnly args;
               buildArgs = args // {
                 inherit cargoArtifacts;
-                buildPhaseCargoCommand = "cargo leptos build --release -vvv";
-                cargoTestCommand = "cargo leptos test --release -vvv";
+                # buildPhaseCargoCommand = "cargo leptos build --release -vvv";
+                buildPhaseCargoCommand = "LEPTOS_SITE_PKG_DIR=\"pgk-$(nix-hash .)\" cargo leptos build --release -vvv";
+                cargoTestCommand = "LEPTOS_SITE_PKG_DIR=\"pgk-$(nix-hash .)\" cargo leptos test --release -vvv";
                 cargoExtraArgs = "";
                 nativeBuildInputs = [
                   pkgs.makeWrapper
                   pkgs.nix # Provides `nix-hash` which we use for cache busting
                 ];
+                #  siteHash=$(nix-hash target/site/pkg)
+                #  pkgDirName="pkg-$siteHash"
+                #  mv $out/bin/site/pkg $out/bin/site/$pkgDirName
+                #  --set LEPTOS_SITE_PKG_DIR $pkgDirName
                 installPhaseCommand = ''
                   mkdir -p $out/bin
                   cp target/release/${name} $out/bin/
                   cp -r target/site $out/bin/
-                  siteHash=$(nix-hash target/site/pkg)
-                  pkgDirName="pkg-$siteHash"
-                  mv $out/bin/site/pkg $out/bin/site/$pkgDirName
                   wrapProgram $out/bin/${name} \
-                    --set LEPTOS_SITE_ROOT $out/bin/site \
-                    --set LEPTOS_SITE_PKG_DIR $pkgDirName
+                    --set LEPTOS_SITE_ROOT $out/bin/site
                 '';
               };
               package = craneLib.buildPackage (buildArgs // config.instanix.overrideCraneArgs buildArgs);
