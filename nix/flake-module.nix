@@ -73,8 +73,8 @@ in
               buildArgs = args // {
                 inherit cargoArtifacts;
                 # buildPhaseCargoCommand = "cargo leptos build --release -vvv";
-                buildPhaseCargoCommand = "LEPTOS_SITE_PKG_DIR=\"pgk-$(nix-hash .)\" cargo leptos build --release -vvv";
-                cargoTestCommand = "LEPTOS_SITE_PKG_DIR=\"pgk-$(nix-hash .)\" cargo leptos test --release -vvv";
+                buildPhaseCargoCommand = "LEPTOS_SITE_PKG_DIR=\"pkg-$(nix-hash .)\" cargo leptos build --release -vvv";
+                cargoTestCommand = "LEPTOS_SITE_PKG_DIR=\"pkg-$(nix-hash .)\" cargo leptos test --release -vvv";
                 cargoExtraArgs = "";
                 nativeBuildInputs = [
                   pkgs.makeWrapper
