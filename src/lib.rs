@@ -23,13 +23,11 @@ pub fn hydrate() {
     //
     // 1. Hash the whole project directory before compiling.
     // 2. Set LEPTOS_SITE_PKG_DIR at compile time to a value like "pkg-$hash".
-    // 3. At runtime we set the environment variable LEPTOS_SITE_PKG_DIR from said value.
+    // 3. Set LEPTOS_SITE_PKG_DIR to the same value at runtime (Nix does this).
     // 4. We use that to refer to our assets, and cache busting happens.
     //
-    // We have to do this both for the front- and back-end, so similar logic
-    // exists in both `lib.rs` and `main.rs`. In `lib.rs` we set a constant and
-    // in `main.rs` we also set an environment variable (since Leptos uses that
-    // for its configuration).
+    // We have to do this both for the front- and back-end, so the same logic
+    // exists in both `lib.rs` and `main.rs`.
     pub const LEPTOS_SITE_PKG_DIR: &str = env!("LEPTOS_SITE_PKG_DIR");
 
     leptos::mount_to_body(move || {

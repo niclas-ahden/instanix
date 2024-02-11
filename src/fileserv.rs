@@ -21,7 +21,7 @@ pub async fn file_and_error_handler(
     let root = options.site_root.clone();
     let res = get_static_file(uri.clone(), &root).await.unwrap();
 
-    log::info!("Static file: {}", uri.clone());
+    // log::info!("Static file: {}", uri.clone());
 
     if res.status() == StatusCode::OK {
         res.into_response()

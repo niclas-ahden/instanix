@@ -72,24 +72,27 @@ in
               cargoArtifacts = craneLib.buildDepsOnly args;
               buildArgs = args // {
                 inherit cargoArtifacts;
-                # buildPhaseCargoCommand = "cargo leptos build --release -vvv";
-                buildPhaseCargoCommand = "LEPTOS_SITE_PKG_DIR=\"pkg-$(nix-hash .)\" cargo leptos build --release -vvv";
-                cargoTestCommand = "LEPTOS_SITE_PKG_DIR=\"pkg-$(nix-hash .)\" cargo leptos test --release -vvv";
+                ## Cache busting
+                #  We get a hash of the whole directory and use that to bust our asset cache. We
+                #  store it in a file so that we can use it in the `installPhase` later.
+                buildPhaseCargoCommand = ''
+                  echo "pkg-$(nix-hash .)" > leptos_site_pkg_dir_hash
+                  LEPTOS_SITE_PKG_DIR="$(cat leptos_site_pkg_dir_hash)" cargo leptos build --release -vvv
+                '';
+                # cargoTestCommand = "LEPTOS_SITE_PKG_DIR=\"pkg-$(nix-hash .)\" cargo leptos test --release -vvv";
+                cargoTestCommand = "";
                 cargoExtraArgs = "";
                 nativeBuildInputs = [
                   pkgs.makeWrapper
                   pkgs.nix # Provides `nix-hash` which we use for cache busting
                 ];
-                #  siteHash=$(nix-hash target/site/pkg)
-                #  pkgDirName="pkg-$siteHash"
-                #  mv $out/bin/site/pkg $out/bin/site/$pkgDirName
-                #  --set LEPTOS_SITE_PKG_DIR $pkgDirName
                 installPhaseCommand = ''
                   mkdir -p $out/bin
                   cp target/release/${name} $out/bin/
                   cp -r target/site $out/bin/
                   wrapProgram $out/bin/${name} \
-                    --set LEPTOS_SITE_ROOT $out/bin/site
+                    --set LEPTOS_SITE_ROOT $out/bin/site \
+                    --set LEPTOS_SITE_PKG_DIR "$(cat leptos_site_pkg_dir_hash)"
                 '';
               };
               package = craneLib.buildPackage (buildArgs // config.instanix.overrideCraneArgs buildArgs);
