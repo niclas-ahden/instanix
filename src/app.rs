@@ -2,10 +2,10 @@ use crate::routes::{
     // blog::*,
     blog::avoiding_danger_using_types::*,
     home::*,
-    recruiting::back_end::*,
-    recruiting::front_end::*,
-    recruiting::thank_you::*,
-    recruiting::*,
+    // recruiting::back_end::*,
+    // recruiting::front_end::*,
+    // recruiting::thank_you::*,
+    // recruiting::*,
 };
 use leptos::*;
 use leptos_meta::*;
@@ -33,9 +33,9 @@ pub fn App(pkg_dir: String) -> impl IntoView {
                             "Home"
                         </A>
                     </li>
-                    <li>
-                        <A href="/recruiting">"Recruiting"</A>
-                    </li>
+                    // <li>
+                    //     <A href="/recruiting">"Recruiting"</A>
+                    // </li>
                     <li>
                         <A href="/blog">"Blog"</A>
                     </li>
@@ -55,22 +55,22 @@ pub fn App(pkg_dir: String) -> impl IntoView {
                         path="/blog/avoiding-danger-using-types"
                         view=|| { view! { <AvoidingDangerUsingTypes/> } }
                     />
-                    <Route
-                        path="/recruiting"
-                        view=|| { view! { <OpenPositions/> } }
-                    />
-                    <Route
-                        path="/recruiting/typescript-front-end-developer"
-                        view=|| { view! { <FrontEndDeveloper/> } }
-                    />
-                    <Route
-                        path="/recruiting/back-end-developer"
-                        view=|| { view! { <BackEndDeveloper/> } }
-                    />
-                    <Route
-                        path="/recruiting/thank-you"
-                        view=|| { view! { <ThankYou/> } }
-                    />
+                    // <Route
+                    //     path="/recruiting"
+                    //     view=|| { view! { <OpenPositions/> } }
+                    // />
+                    // <Route
+                    //     path="/recruiting/typescript-front-end-developer"
+                    //     view=|| { view! { <FrontEndDeveloper/> } }
+                    // />
+                    // <Route
+                    //     path="/recruiting/back-end-developer"
+                    //     view=|| { view! { <BackEndDeveloper/> } }
+                    // />
+                    // <Route
+                    //     path="/recruiting/thank-you"
+                    //     view=|| { view! { <ThankYou/> } }
+                    // />
                 </Routes>
             </main>
             <footer class="Footer">
