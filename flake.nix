@@ -1,13 +1,19 @@
 {
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
+
     flake-parts.url = "github:hercules-ci/flake-parts";
+    flake-parts.inputs.nixpkgs-lib.follows = "nixpkgs";
     systems.url = "github:nix-systems/default";
 
     rust-overlay.url = "github:oxalica/rust-overlay";
+    rust-overlay.inputs.nixpkgs.follows = "nixpkgs";
+
     crane.url = "github:ipetkov/crane";
     crane.inputs.nixpkgs.follows = "nixpkgs";
+
     treefmt-nix.url = "github:numtide/treefmt-nix";
+    treefmt-nix.inputs.nixpkgs.follows = "nixpkgs";
   };
 
   outputs = inputs:
@@ -43,6 +49,7 @@
             config.treefmt.build.devShell
             self'.devShells.instanix
           ];
+          LD_LIBRARY_PATH = lib.makeLibraryPath [ pkgs.openssl ];
           nativeBuildInputs = with pkgs; [
             cargo-watch
           ] ++ lib.optionals pkgs.stdenv.isDarwin [

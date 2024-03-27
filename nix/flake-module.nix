@@ -23,6 +23,8 @@ in
                 "rust-src"
                 "rust-analyzer"
                 "clippy"
+              ] ++ lib.optionals (!pkgs.stdenv.isDarwin) [
+                "rustc-codegen-cranelift-preview"
               ];
             };
           };
@@ -43,6 +45,7 @@ in
                 (lib.hasSuffix "\.html" path) ||
                 (lib.hasInfix "/public/" path) ||
                 (lib.hasInfix "/style/" path) ||
+                (lib.hasInfix "/src/" path) ||
                 # Default filter from crane (allow .rs files)
                 (config.instanix.craneLib.filterCargoSources path type)
               ;
